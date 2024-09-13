@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<title>rejestracja</title>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+  <h2> rejestracja </h2>
+</div>
+
+
+<div class="row">
+    <div class="col-8">
+        <form action ="" method="POST" name="myform">
+            <h4 class="form-header text-center">utwórz nowego użytkownika</h4>
+            <div class="form-group">
+                {{ form.csrt_token }}
+                <label class="form-label">{{ form.user_login.label }}</label>
+                {{form.user_login(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.csrt_token }}
+                <label class="form-label">{{ form.user_email.label }}</label>
+                {{form.user_email(class="form-control") }}
+                {% if form.user_email.errors %}
+                {% for error in form.user_email.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" >{{ form.user_password_hash.label }}</label>
+                <ul>
+                {% for error in form.user_password_hash.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+                    </ul>
+                {{ form.csrt_token }}
+                {{ form.user_password_hash(class="form-control") }}
+                <small id="passwordHelpBlock" class="form-text text-muted">
+  Twoje hasło powinno mieć co najmniej 8 znaków oraz zawierać litery, cyfry i krzaki.
+</small>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">{{ form.user_password_hash2.label }}</label>
+                {{ form.hidden_tag() }}
+                {{ form.user_password_hash2(class="form-control") }}
+                {% for error in form.user_password_hash2.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
