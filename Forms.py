@@ -1,4 +1,5 @@
-from wtforms import Form, validators, StringField, SubmitField, URLField, TextAreaField, PasswordField, ValidationError
+from wtforms import (Form, validators, StringField, SubmitField, URLField, TextAreaField, PasswordField,
+                     ValidationError, IntegerField, SearchField)
 from wtforms.validators import DataRequired, EqualTo, Length, Email, InputRequired
 from wtforms.fields import DateField
 from wtforms_components import TimeField, DateTimeField
@@ -47,7 +48,7 @@ class SpotCreatorForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    user_login = StringField("nazwa użytkownika")
+    user_login = StringField("nazwa użytkownika", validators=[Length(max=30)])
     user_email = StringField("email", validators=[DataRequired(), Email(message="oj nie wygląda to na maila")])
     user_password_hash = PasswordField("hasło",
                                        validators=[DataRequired(),
@@ -57,9 +58,20 @@ class RegistrationForm(FlaskForm):
     user_password_hash2 = PasswordField("Potwierdź hasło")
     submit = SubmitField("Utwórz konto")
 
-    def validate_email(self, email, table_name):
-        if table_name.query.filter_by(email=email.data).first():
-            raise ValidationError("użytkownik o takim adresie email już istnieje")
+
+class SignInForm(FlaskForm):
+    user_email = StringField("podaj email", validators=[DataRequired()])
+    user_password = PasswordField("hasło", validators=[DataRequired()])
+    submit = SubmitField("zaloguj")
 
 
+class EventBrowser(FlaskForm):
+    date_from = DateField("Data", format="%Y-%m-%d", validators=[validators.DataRequired()],
+                          render_kw={'class': 'col-md-3 mb-3'})
+    date_to = DateField("Data", format="%Y-%m-%d", validators=[validators.DataRequired()],
+                        render_kw={'class': 'col-md-3 mb-3'})
+    distance = IntegerField("odległość", render_kw={'class': 'form-control'})
 
+    searcher = SearchField("wyszukaj",  validators=[validators.DataRequired()],
+                           render_kw={'class': 'col-md-3 mb-3'})
+    submit = SubmitField("szukaj")
