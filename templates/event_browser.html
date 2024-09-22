@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<title>koncertmistrz strona użytkownika</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <h2> wydarzenia </h2>
+
+  <nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">Szukaj wg</a>
+  <form class="form-inline">
+      <div class="form-group col-md-6">
+                 <label class="form-label" >{{ form.date_from.label}}</label>
+                 {{form.date_from(class="datepicker")}}
+             </div>
+      <div class="form-group">
+    <label for="exampleFormControlSelect2">{{form.distance.label}}</label>
+    <select class="form-control" id="exampleFormControlSelect2">
+        {% for km in range(5, 1000, 10) %}
+            <option>{{ km }}</option>
+        {% endfor %}
+
+    </select>
+  </div>
+     <button class="btn btn-sm btn-outline-secondary" type="button">wydarzenie</button>
+     <button class="btn btn-sm btn-outline-secondary" type="button">artysta</button>
+     <button class="btn btn-sm btn-outline-secondary" type="button">miejsce</button>
+
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">szukaj</button>
+  </form>
+</nav>
+
+</div>
+{% endblock %}

@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" href="/creator_page_event/">wydarzenie</a>
@@ -15,48 +14,62 @@
     <a class="nav-link" href="/creator_page_artist/">artysta</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/creator_page_festival">festiwal</a>
+    <a class="nav-link" href="/creator_page_festival/">festiwal</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="creator_page_spot">miejsce</a>
+    <a class="nav-link" href="/creator_page_spot/">miejsce</a>
   </li>
 </ul>
 
+
  <div class="row">
-     <h4> Tutaj możesz utworzyć bądź edytować wydarzenie, artystę, festiwal, bądź miejsce. Powyżej na navbarze będą <br>
-linki do formularzy</h4>
 
      <div class="col-8">
-         <h4 class="form-header text-center">obwieszcz wydarzenie</h4>
-         <form action ="" method="POST" name="myform">
-             <div class="mb-3">
-                 {{ form.csrt_token}}
-                 <label  class="form-label">nazwa wydarzenia</label>
-                 {{ form.event_name.label}}{{form.event_name()}}
+         <h4 class="form-header text-center">obwieszcz światu wydarzenie</h4>
+          <form action ="" method="POST" name="myform">
+
+             <div class="form-group">
+                 <label  class="form-label">{{ form.event_name.label}}</label>
+                 {{ form.hidden_tag() }}
+                 {{ form.event_name() }}
+             </div>
+         <div class="form-group">
+    <label for="exampleFormControlSelect2">{{form.event_artist.label}}</label>
+    <select class="form-control" id="exampleFormControlSelect2">
+      <option>Halinka</option>
+      <option>Krystyna and Boys</option>
+      <option>Dreigroschenoper</option>
+        <option>Druig</option>
+      <option>Fertig</option>
+      <option>Kraftwerk</option>
+    </select>
+  </div>
+         <div class="form-row">
+             <div class="form-group col-md-6">
+                 <label class="form-label" >{{ form.event_date.label}}</label>
+                 {{form.event_date(class="datepicker")}}
+             </div>
+             <div class="form-group col-md-6 ">
+                 <label class="form-label" >{{ form.event_time.label}}</label>
+                 {{ form.event_time(type="time") }}
+             </div>
+         </div>
+             <div class="form-group">
+                 <label class="form-label">{{ form.event_description.label}}</label>
+                 {{ form.hidden_tag() }}
+                 {{ form.event_description() }}
              </div>
              <div class="mb-3">
-                 <label class="form-label" >data</label>
-                 {{ form.event_date.label}}{{form.event_date(class="datepicker")}}
-             </div>
-             <div class="mb-3">
-                 <label class="form-label" >godzina</label>
-                 {{ form.event_time.label}}{{ form.event_time(type="time") }}
-             </div>
-             <div class="mb-3">
-                 <label class="form-label" >opis (nieobowiązkowy)</label>
-                 {{ form.event_description.label}}{{form.event_description()}}
-             </div>
-             <div class="mb-3">
-                 <label class="form-label" >link(obowiązkowy)</label>
-                 {{ form.event_url.label}}{{form.event_url()}}
+                 <label class="form-label">{{ form.event_url.label }}</label>
+                 {{ form.hidden_tag() }}
+                 {{ form.event_url() }}
              </div>
              <div>
-             {{ form.submit() }}
+             {{ form.submit(class="btn btn-primary") }}
              </div>
-         </form>
+          </form>
      </div>
  </div>
-
 
 
 {% endblock %}
